@@ -1,6 +1,6 @@
 package com.example.oop.encapsulation.accessModifierHelper;
 
-import oop.encapsulation.accessModifiers.Student;
+import com.example.oop.encapsulation.accessModifiers.Student;
 
 public class StudentChild extends Student {
 
