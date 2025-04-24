@@ -1,0 +1,21 @@
+Problems with too much if-else:
+1. code-understandability becomes difficult because of too much code in 1 code-unit
+2. testing becomes difficult because test-cases for each if-else's leaf-node has to be written
+3. regression issues may occur, leading to production failure, when some new code is added to modify existing if-else code
+4. if >1 engg working simultaneously, possibility of merge-conflicts, leading to time-waste in development
+5. code-duplication: some of if conditions may have some code in common
+
+SRP violation: too many if-else or monster method [method does a lot more than its name suggests]
+
+for 2 cases, we will have to change fly() method:
+    a. when sparrow/crow etc. changes its style of flying
+    b. when a new type of bird is added
+
+    current v0 solution is responsible for:
+    i. how every type of bird performs its behavior/fly() method: this is a clear problem
+    ii. all the attributes of all possible types of birds: this is kind of fine(, but it may lead to extra code etc)
+
+OCP violation: open for extension, but closed for modification
+
+v0 solution: if a new type of bird, say cuckoo is added, then we will have to modify existing code-unit
+    it may lead to: regression issues, and testing also becomes difficult
