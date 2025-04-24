@@ -1,0 +1,5 @@
+This solution follows all of SOLID principles and also the Dependency Injection, through the constructor.
+
+So, no code changes in Classes if some class's any behavior changes tomorrow
+because behaviors are being implemented through the dependency on separate interface, whose instance is being passed at RT
+

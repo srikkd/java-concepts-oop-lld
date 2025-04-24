@@ -1,0 +1,32 @@
+This solution takes care of abiding by SRP and OCP:
+    now, Bird Class is not responsible for all the things of all birds' types
+    when a new type of Bird is added, we don't have to modify any existing code: just add a new Class with its own fly()
+
+Now suppose, we may have some birds which can't fly: how we can handle this requirement?
+    1. put boolean canFly in Bird class, and accordingly, handle it
+        i. using try-catch or
+        ii. keeping fly() empty for non-flying birds
+        here, client will have lot of documentation to read about usage and importance of canFly which is easy to miss
+
+        when a Penguin class is added, then an exception may be thrown or Penguin may have some impl which should not be
+        It will be a surprise for the Client to see Penguin have some implementation in fly() [LISKOV]
+
+        IDEALLY, we will want that a Penguin class doesn't have fly() method
+
+        if Bird has abstract fly() prototype, all child must impl it, so what next?
+        in such a case, we can't make Penguin a child of Bird class because of LISKOV:
+            any method can't be overridden just like that; be careful about its purpose;
+            b4 establishing P-C relationship, check about each method's purpose being same for both P&C
+    2. remove fly() method from Bird class, and keep it only in the classes where required
+        this works for some of above problems
+        but, we will not be able to create a general Bird type object, or List<Bird>
+        with instances being filled at runtime
+        because then, the relevant variable can't access fly() because of being of type Bird [this enforced by compiler]
+
+Suppose, a new requirement comes: get a list of birds that can fly
+    this requirement also will fail in 2.
+
+Possible solutions:
+    1. v1.5: make 2 abstract classes FlyingBird and NonflyingBird, as child of Bird,
+                and all real birds' classes should be child of these 2
+    2. v2: move-out method fly() in <<Flyable>> interface, and make the birds that can fly, to implement this interface
