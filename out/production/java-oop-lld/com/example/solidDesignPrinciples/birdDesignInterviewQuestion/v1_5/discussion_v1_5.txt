@@ -1,0 +1,12 @@
+this solution seems to solve the problems associated with v1
+But, it has its own unsolvable and non-negotiable problems:
+    1. Class-explosion: for N behaviors, we will need 2^N no. of classes which is huge
+        [for 10 methods/behaviors, we will need >1000 classes]
+
+        Also, it doesn't follow OCP
+        For adding another new behavior, we need to modify a lot and it involves unbearable complexities
+    2. we still can't get a list of Flying Birds: List<FlyingBird>
+
+Possible solution:
+    1. move-out method fly() in <<Flyable>> interface, and make the birds that can fly, to implement this interface
+        This solves both of our problems: for 10 methods, we will <=10 interfaces, and List<Flyable> is possible

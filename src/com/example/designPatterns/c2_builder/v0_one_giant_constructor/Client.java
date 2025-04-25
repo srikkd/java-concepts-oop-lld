@@ -1,4 +1,4 @@
-package com.example.designPatterns.c2_builder.v0_telescopic_constructors;
+package com.example.designPatterns.c2_builder.v0_one_giant_constructor;
 
 public class Client {
     public static void main(String[] args) {

@@ -1,4 +1,9 @@
-package com.example.designPatterns.c2_builder.v0_telescopic_constructors;
+package com.example.designPatterns.c2_builder.v0_one_giant_constructor;
+
+// this design of 1 Giant constructor can lead to many issues:
+// 1. Lot of cross-check while filling param-values in client to ensure the correct order and data-type.
+// 2. not easy to understand: eg: 26, 38: which one is age and psp etc. like confusions.
+// 3. Client may end-up sending lots of null values if he doesn't want to set certain attributes: its unnecessary work.
 
 public class Student {
     String name;

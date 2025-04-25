@@ -1,0 +1,22 @@
+This solution follows all of SOLID principles, solving most of the problems encountered till now in design
+
+Now, the dependency is not on 1 particular Class implementation,
+but on a generic Interface, whose behaviors may be implemented by many classes
+These classes having behaviors can be instantiated inside the Sparrow or Crow class as per their Flying behavior
+
+If Sparrow changes its behavior to another, we just need to change 1 word in Sparrow class [new Flyway1() to new Flyway2()]
+because behaviors are being implemented through the dependency on separate interface, which has fixed methods
+and those methods are being implemented by classes and are being used as it is in Sparrow class: so, no change in Sparrow code except 1
+
+
+So, this is the solution for Phonepe-Yesbank scenario which happened in 2022.
+
+
+However, there is still some issue:
+    1. if tomorrow Sparrow or Crow changes its flying behavior or any other behavior,
+        some code is still needed to be modified
+        can it also be avoided?
+    2. Testing might require dummy/mock/stub objects for some dependencies, so it might be an issue
+
+Possible solution:
+what about passing the instance of FlyingBehavior at RT in the Client? this is called DEPENDENCY INJECTION (v4)

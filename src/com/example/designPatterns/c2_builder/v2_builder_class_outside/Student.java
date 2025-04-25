@@ -1,4 +1,4 @@
-package com.example.designPatterns.c2_builder.v1_using_hashmap;
+package com.example.designPatterns.c2_builder.v2_builder_class_outside;
 
 // this design of 1 Giant constructor can lead to many issues:
 // 1. Lot of cross-check while filling param-values in client to ensure the correct order and data-type.
@@ -17,55 +17,43 @@ package com.example.designPatterns.c2_builder.v1_using_hashmap;
 import java.util.HashMap;
 
 public class Student {
-    String name;
-    Integer age;
-    Double psp;
-    String universityName;
-    String batch;
-    Long id;
-    Integer gradYear;
-    String phoneNumber;
-    String email;
+    private String name;
+    private Integer age;
+    private Double psp;
+    private String universityName;
+    private String batch;
+    private Long id;
+    private Integer gradYear;
+    private String phoneNumber;
+    private String email;
 
-    public Student(HashMap<String, Object> studentMap){
+    public Student(Builder builder){
 
         // validation starts
-        if(studentMap.get("gradYear") != null) {
-            if ( (Integer) studentMap.get(gradYear) > 2022 ) {
+        if(builder.getGradYear() != null) {
+            if ( builder.getGradYear() > 2022 ) {
                 throw new IllegalArgumentException("Grad year cannot be greater than 2022");
             }
         }
         // validation completed
 
-        if(studentMap.get("name") != null) {
-            this.name = (String) studentMap.get("name");
-        }
-        if(studentMap.get("age") != null) {
-            this.age = (Integer) studentMap.get("age");
-        }
-        if(studentMap.get("psp") != null) {
-            this.psp = (Double) studentMap.get("psp");
-        }
-        if(studentMap.get("universityName") != null) {
-            this.universityName = (String) studentMap.get("universityName");
-        }
-        if(studentMap.get("batch") != null) {
-            this.batch = (String) studentMap.get("batch");
-        }
-        if(studentMap.get("id") != null) {
-            this.id = (Long) studentMap.get("id");
-        }
-        if(studentMap.get("gradYear") != null) {
-            this.gradYear = (Integer) studentMap.get("gradYear");
-        }
-        if(studentMap.get("phoneNumber") != null) {
-            this.phoneNumber = (String) studentMap.get("phoneNumber");
-        }
-        if(studentMap.get("email") != null) {
-            this.email = (String) studentMap.get("email");
-        }
+        this.name = builder.getName();
 
+        this.age = builder.getAge();
 
+        this.psp = builder.getPsp();
+
+        this.universityName = builder.getUniversityName();
+
+        this.batch = builder.getBatch();
+
+        this.id = builder.getId();
+
+        this.gradYear = builder.getGradYear();
+
+        this.phoneNumber = builder.getPhoneNumber();
+
+        this.email = builder.getEmail();
     }
 
 }

@@ -1,0 +1,16 @@
+From v2, we Moved-out fly() implementations in the new classes: 1 class for each way of implementation in fly()
+        and thus, create an object of such classes as per need in the classes like Sparrow, Crow etc., and call makefly() or getFly()
+        Problem with this: Phone-pe scenario with YesBank
+            If tomorrow, Crow changes from flyWay1 to flyWay2:
+            lot of modification can be required if flyWay2 has different methods, compared to flyWay1
+
+            1 class impl Depending on another Class is not a good design principle: it violates DEPENDENCY INVERSION
+
+
+Now, the dependency is on 1 particular Class implementation
+These classes like Flyway1 or Flyway2 etc, having behaviors can be instantiated inside the Sparrow or Crow class as per their Flying behavior
+
+If Sparrow changes its behavior to another,
+we need to change the instantiation of Flyway1 to Flyway2 and also all the method-names in Sparrow class
+
+Problem, similar to Phonepe-Yesbank Scenario, which happened in 2022.

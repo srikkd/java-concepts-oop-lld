@@ -1,4 +1,4 @@
-package com.example.designPatterns.c2_builder.v3_builder_class_inside;
+package com.example.designPatterns.c2_builder.v4_industry_standard;
 
 // this design of passing params in Hashmap has its own issues: as you can see while coding its constructor
 // 1. Lot of extra type-casting to convert from Object to its appropriate DT of the attribute.
@@ -19,23 +19,17 @@ package com.example.designPatterns.c2_builder.v3_builder_class_inside;
 // 2. make Student constructor private and call it from Builder class which is inside the Student class itself
 // through a build() method.
 
+// above code works fine with solving all problems: but, we can make it more beautiful in v4
+// can we transform the above code, something as follows:
+
 public class Client {
     public static void main(String[] args) {
-        Student.Builder builder = Student.getBuilderObject();
-        builder.setName("Naman");
-        builder.setEmail("nama@gmail.com");
-        builder.setPhoneNumber("9878789798");
-
-        Student s3 = builder.build();
-
-        // above code works fine with solving all problems: but, we can make it more beautiful in v4
-        // can we transform the above code, something as follows:
-        // Student s = Student.getBuilderObject()
-        //                .setName("Naman")
-        //                .setAge(24)
-        //                .build();
-
-        System.out.println(s3);
-
+         Student s = Student.getBuilderObject()
+                            .setName("Naman")
+                            .setAge(24)
+                            .setEmail("nama@gmail.com")
+                            .setPhoneNumber("9878789798")
+                            .build();
+         // put a break-point before returning from main(), to check if its fine
     }
 }

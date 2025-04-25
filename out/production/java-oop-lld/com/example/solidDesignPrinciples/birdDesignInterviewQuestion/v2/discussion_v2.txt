@@ -1,0 +1,19 @@
+This solution v2 solves most of the previous problems/requirements:
+    1. List<Flyable> is possible: we can get birds by categories based on their behavior
+        [multiple behavior requirement implies that it is not a good design on the side of Client:
+            this req shouldn't come for him if his design is good]
+    2. For adding another new behavior, we just need to add 1 extra interface: eg: Walkable
+    3. No Fly() method allowed in the Class of birds that can't fly; they will not implement Flyable interface
+    4. This follows SRP, OCP, Liskov, Interface-Segregation Design Principles
+
+Problems with this v2 solution: if 2 or more birds flies in the same way, it will cause code-duplication, violating DRY
+
+Possible solution:
+    1. v2.5: Move-out fly() implementations in the new classes: 1 class for each way of implementation in fly()
+        and then, create an object of such classes as per need in the classes like Sparrow, Crow etc., and call fly()
+        Problem with this: Phone-pe scenario with YesBank
+            If tomorrow, Crow changes from flyWay1 to flyWay2:
+            lot of modification can be required if flyWay2 has different methods, compared to flyWay1
+
+            1 class impl Depending on another Class is not a good design principle: it violates DEPENDENCY INVERSION
+    2. v3:

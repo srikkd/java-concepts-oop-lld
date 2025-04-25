@@ -1,4 +1,4 @@
-package com.example.designPatterns.c2_builder.v2_builder_class_outside;
+package com.example.designPatterns.c2_builder.v3_builder_class_inside;
 
 // this design of passing params in Hashmap has its own issues: as you can see while coding its constructor
 // 1. Lot of extra type-casting to convert from Object to its appropriate DT of the attribute.
@@ -11,25 +11,29 @@ package com.example.designPatterns.c2_builder.v2_builder_class_outside;
 // Technically, it can be used for correctness and without much issues.
 // But, the code still doesn't look beautiful:
 // 2 problems:
-// Client has to KNOW ABOUT BUILDER CLASS, in order to create Student object
-// ALSO, CLIENT can MISUSE THE PUBLIC CONSTRUCTOR OF STUDENT BY PASSING NULL
+// 1. Client has to KNOW ABOUT BUILDER CLASS, in order to create Student object
+// 2. ALSO, CLIENT can MISUSE THE PUBLIC CONSTRUCTOR OF STUDENT BY PASSING NULL
 // lets try to solve above issues in v3:
+// v3 solves the above 2 issues:
+// 1. getBuilderObject() method inside Student class itself
+// 2. make Student constructor private and call it from Builder class which is inside the Student class itself
+// through a build() method.
 
 public class Client {
     public static void main(String[] args) {
-//        HashMap<String, Object> studentMap1 = new HashMap<>();
-//        studentMap1.put("name", "Naman");
-//        studentMap1.put("email", "nama@gmail.com");
-//        studentMap1.put("phoneNumber", "9878789798");
-
-        Builder builder = new Builder();
+        Student.Builder builder = Student.getBuilderObject();
         builder.setName("Naman");
         builder.setEmail("nama@gmail.com");
-//        builder.setPsp("9878789798"); // it protects against type-safety
         builder.setPhoneNumber("9878789798");
 
-        Student s3 = new Student(builder);
-//        Student s3 = new StudentBuilder().setStudentMap(builder).createStudent();
+        Student s3 = builder.build();
+
+        // above code works fine with solving all problems: but, we can make it more beautiful in v4
+        // can we transform the above code, something as follows:
+        // Student s = Student.getBuilderObject()
+        //                .setName("Naman")
+        //                .setAge(24)
+        //                .build();
 
         System.out.println(s3);
 

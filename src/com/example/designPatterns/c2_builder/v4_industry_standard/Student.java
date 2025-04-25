@@ -1,4 +1,4 @@
-package com.example.designPatterns.c2_builder.v3_builder_class_inside;
+package com.example.designPatterns.c2_builder.v4_industry_standard;
 
 // this design of 1 Giant constructor can lead to many issues:
 // 1. Lot of cross-check while filling param-values in client to ensure the correct order and data-type.
@@ -12,6 +12,20 @@ package com.example.designPatterns.c2_builder.v3_builder_class_inside;
 // 3. No safety against Typos in the attribute-anmes :)in the Client's code:
 //      it can lead to that attribute remaining uninitialized.
 // can we use another class, instead of HashMap, to resolve above issues: that class will have same attributes as Student
+// So, we are using a Builder class which solves all of above problems.
+// Technically, it can be used for correctness and without much issues.
+// But, the code still doesn't look beautiful:
+// 2 problems:
+// 1. Client has to KNOW ABOUT BUILDER CLASS, in order to create Student object
+// 2. ALSO, CLIENT can MISUSE THE PUBLIC CONSTRUCTOR OF STUDENT BY PASSING NULL
+// lets try to solve above issues in v3:
+// v3 solves the above 2 issues:
+// 1. getBuilderObject() method inside Student class itself
+// 2. make Student constructor private and call it from Builder class which is inside the Student class itself
+// through a build() method.
+
+// above code works fine with solving all problems: but, we can make it more beautiful in v4
+// can we transform the above code, something as follows:
 // .
 
 public class Student {
@@ -34,6 +48,10 @@ public class Student {
             }
         }
         // validation completed
+        // validation logic can be handed-over to builder class also: see validate() method
+        // its good infact: every responsibility to create Student object is on Builder class
+        // 1. to validate, 2. to provide a good interface, 3. to provide helper methods
+        // here, we may not prefer SRP : main purpose of Builder design pattern takes preference
 
         this.name = builder.getName();
 
@@ -105,42 +123,61 @@ public class Student {
             return phoneNumber;
         }
 
-        public void setName(String name){
+        public Builder setName(String name){
             this.name = name;
+            return this;
         }
-        public void setAge(Integer age) {
+        public Builder setAge(Integer age) {
             this.age = age;
+            return this;
         }
 
-        public void setPsp(Double psp) {
+        public Builder setPsp(Double psp) {
             this.psp = psp;
+            return this;
         }
 
-        public void setUniversityName(String universityName) {
+        public Builder setUniversityName(String universityName) {
             this.universityName = universityName;
+            return this;
         }
 
-        public void setBatch(String batch) {
+        public Builder setBatch(String batch) {
             this.batch = batch;
+            return this;
         }
 
-        public void setId(Long id) {
+        public Builder setId(Long id) {
             this.id = id;
+            return this;
         }
 
-        public void setGradYear(Integer gradYear) {
+        public Builder setGradYear(Integer gradYear) {
             this.gradYear = gradYear;
+            return this;
         }
 
-        public void setEmail(String email) {
+        public Builder setEmail(String email) {
             this.email = email;
+            return this;
         }
 
-        public void setPhoneNumber(String phoneNumber) {
+        public Builder setPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
+            return this;
         }
 
+        private boolean validate(){
+            if( this.age < 18 || (2000+this.age > 2025) ){
+                return false;
+            }
+            return true;
+        }
         public Student build(){
+            if( !validate() ){
+                throw new IllegalArgumentException("Pls pass appropriate arguments for Student object.");
+            }
+
             return new Student(this);
         }
     }
