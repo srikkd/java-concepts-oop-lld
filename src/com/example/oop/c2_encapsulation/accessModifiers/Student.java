@@ -7,6 +7,17 @@ public class Student {
     public int age;
     public String batch;
 
+    public Student clone(){
+        Student copyStudentObject = new Student();
+        copyStudentObject.id = this.id; // private can be accessed thr new object in the same class
+        copyStudentObject.name = this.name;
+        copyStudentObject.gender = this.gender;
+        copyStudentObject.age = this.age;
+        copyStudentObject.batch = batch;
+
+        return copyStudentObject;
+    }
+
     public void changeBatch(String newBatch){
         batch = newBatch;
         return ;
