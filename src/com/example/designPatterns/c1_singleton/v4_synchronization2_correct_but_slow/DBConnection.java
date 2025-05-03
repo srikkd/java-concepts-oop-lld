@@ -7,7 +7,7 @@ public class DBConnection {
     // but, risk of multiple-object creation was there only for first few/many threads trying to create a new object
     // can we do better?: lets try v5 onwards
 
-    private static DBConnection instance = null;
+    private volatile static DBConnection instance = null;
     // null is just kept to ensure uninitialized: we can use other things also
 
     private DBConnection(){}

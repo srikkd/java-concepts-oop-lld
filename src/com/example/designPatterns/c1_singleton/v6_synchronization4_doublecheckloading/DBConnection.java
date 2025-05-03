@@ -12,19 +12,19 @@ public class DBConnection {
 
     // solution for this: use enums for creating singleton class: v7
 
-    private static DBConnection instance = null;
+    private volatile static DBConnection singleInstance = null;
     // null is just kept to ensure uninitialized: we can use other things also
 
     private DBConnection(){}
 
     public static DBConnection getDBConnectionObject(){
-        if(instance == null){
+        if(singleInstance == null){
             synchronized (DBConnection.class){
-                if(instance == null){
-                    instance = new DBConnection();
+                if(singleInstance == null){
+                    singleInstance = new DBConnection();
                 }
             }
         }
-        return instance;
+        return singleInstance;
     }
 }

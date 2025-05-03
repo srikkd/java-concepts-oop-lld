@@ -8,7 +8,7 @@ public class DBConnection {
 
     // let's try v6 onwards
 
-    private static DBConnection instance = null;   // null is just kept to ensure uninitialized: we can use other things also
+    private volatile static DBConnection instance = null;   // null is just kept to ensure uninitialized: we can use other things also
 
     private DBConnection(){}
 
